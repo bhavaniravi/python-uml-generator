@@ -10,17 +10,18 @@ class Product:
         return self.quantity > 0
 
 class Cart:
-    def __init__(self, products: [Product]=None):
-        self.items:[Product] = []
+    def __init__(self, product: Product):
+        # pyreverse currently doesn't support List, Union type hints
+        self.products = [product]
 
     def add_item(self, product: Product, quantity: int):
-        self.items.append((product, quantity))
+        self.product.append((product, quantity))
 
     def remove_item(self, product: Product):
-        self.items = [item for item in self.items if item[0] != product]
+        self.products = [item for item in self.items if item[0] != products]
 
     def total_price(self) -> float:
-        return sum([item[0].price * item[1] for item in self.items])
+        return sum([item[0].price * item[1] for item in self.products])
 
 class Customer:
     def __init__(self, name: str, email: str, address: str):

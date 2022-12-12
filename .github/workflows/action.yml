@@ -42,21 +42,26 @@ jobs:
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Generate Pyreverse 
         run: |
-          mkdir output
-          pyreverse -o png -d output .
-          ls
-
-      - name: Check
-        run: |
+          mkdir generated_output
+          pyreverse -o png -d generated_output .
           pwd
           ls
-          cat './output/classes.png'
-          
-      - name: Upload failed tests
-        uses: edunad/actions-image@v1.0.1
+          cd generated_output
+          git status
+      
+      - name: Commit report
+        uses: stefanzweifel/git-auto-commit-action@v4
         env: 
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}
         with:
-            path: './output/*.png'
-            GITHUB_TOKEN: env.ACCESS_TOKEN
-            title: 'ERD Diagram Generated'
+          commit_message: Image generated from ${{ env.GITHUB_SHA }}"
+          status_options: --untracked-files=all  
+          add_options: -A            
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Generated Image
+            
+            ![](${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }})/blob/{{ env.GITHUB_HEAD_SHA }}/example/generated_output/classes.png)

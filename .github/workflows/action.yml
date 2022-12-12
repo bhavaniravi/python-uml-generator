@@ -21,7 +21,7 @@ jobs:
         python-version: ["3.10"]
     defaults:
       run:
-        working-directory: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: example/
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +40,7 @@ jobs:
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Generate Pyreverse 
         run: |
-          pyreverse -o png uml_image.png ./example/
+          pyreverse -o png uml_image.png .
           
       - name: Upload failed tests
         uses: edunad/actions-image@v1.0.1

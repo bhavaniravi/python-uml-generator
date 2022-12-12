@@ -44,10 +44,6 @@ jobs:
         run: |
           mkdir generated_output
           pyreverse -o png -d generated_output .
-          pwd
-          ls
-          cd generated_output
-          git status
       
       - name: Commit report
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -63,4 +59,4 @@ jobs:
         with:
           message: |
             Generated Image
-            ![](${{ github.server_url }}/${{ github.repository }})/blob/$env.GITHUB_HEAD_SHA/example/generated_output/classes.png)
+            ![](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.sha }}/example/generated_output/classes.png)

@@ -33,20 +33,30 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install dependencies
         run: |
+          sudo apt-get install graphviz
           python -m pip install --upgrade pip
           pip install pylint
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Generate Pyreverse 
         run: |
-          pyreverse -o png uml_image.png .
+          mkdir output
+          pyreverse -o png -d output .
+          ls
+
+      - name: Check
+        run: |
+          pwd
+          ls
+          cat './output/classes.png'
           
       - name: Upload failed tests
         uses: edunad/actions-image@v1.0.1
         env: 
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
-            path: '.uml_image.png'
+            path: './output/*.png'
             GITHUB_TOKEN: env.ACCESS_TOKEN
             title: 'ERD Diagram Generated'

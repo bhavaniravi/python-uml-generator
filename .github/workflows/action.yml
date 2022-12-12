@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}
         with:
-          commit_message: Image generated from ${{ env.GITHUB_SHA }}"
+          commit_message: Image generated from ${{ github.sha }}"
           status_options: --untracked-files=all  
           add_options: -A            
 
@@ -63,5 +63,4 @@ jobs:
         with:
           message: |
             Generated Image
-            
-            ![](${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }})/blob/{{ env.GITHUB_HEAD_SHA }}/example/generated_output/classes.png)
+            ![](${{ github.server_url }}/${{ github.repository }})/blob/$env.GITHUB_HEAD_SHA/example/generated_output/classes.png)

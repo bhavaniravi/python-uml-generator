@@ -30,8 +30,7 @@ runs:
 
     - uses: mshick/add-pr-comment@v2
       # default is true
-      if: ${{ env.ADD_PR_COMMENT == 'true' }} 
-      needs: job1
+      if: ${{ env.ADD_PR_COMMENT == 'true' }}
       with:
         message: |
           Generated Image

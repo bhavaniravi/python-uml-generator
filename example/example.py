@@ -12,7 +12,7 @@ class Product:
 class Cart:
     def __init__(self, product: Product):
         # pyreverse currently doesn't support List, Union type hints
-        self.products = [product]
+        self.products: list[Product] = [product]
 
     def add_item(self, product: Product, quantity: int):
         self.product.append((product, quantity))

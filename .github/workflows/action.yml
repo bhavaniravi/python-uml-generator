@@ -44,3 +44,4 @@ jobs:
           ADD_PR_COMMENT: true
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}
+          FOLDER_PATH: example/

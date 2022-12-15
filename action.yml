@@ -14,7 +14,7 @@ runs:
     - name: Generate Pyreverse 
       run: |
         mkdir -p ${{ env.OUTPUT_FOLDER }}
-        pyreverse -o ${{ env.FORMAT }} -d ${{ env.OUTPUT_FOLDER }} .
+        pyreverse -o ${{ env.FORMAT }} -d ${{ env.OUTPUT_FOLDER }} ${{ env.FOLDER_PATH }} 
       shell: bash
     
     - name: Commit report

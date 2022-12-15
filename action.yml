@@ -14,23 +14,25 @@ runs:
     - name: Generate Pyreverse 
       run: |
         mkdir -p ${{ env.OUTPUT_FOLDER }}
-        pyreverse -o ${{ env.FORMAT }} -d ${{ env.OUTPUT_FOLDER }} .
+        pyreverse -o ${{ env.FORMAT }} -d ${{ env.OUTPUT_FOLDER }} ${{ env.FOLDER_PATH }} 
       shell: bash
     
     - name: Commit report
+      id: auto-commit-action
       uses: stefanzweifel/git-auto-commit-action@v4
       env: 
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}
+        GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
+        GITHUB_EMAIL: ${{ env.USER_GITHUB_EMAIL }}
       with:
         commit_message: Image generated from ${{ github.event.pull_request.head.sha }}"
         status_options: --untracked-files=all  
-        add_options: -A            
+        add_options: -A           
 
     - uses: mshick/add-pr-comment@v2
-      # default is true
-      if: ${{ env.ADD_PR_COMMENT == "" || env.ADD_PR_COMMENT == "True" }} 
+      if: ${{ env.ADD_PR_COMMENT == 'true' }}
+      env: 
+        GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
       with:
         message: |
           Generated Image
-          ![](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.event.pull_request.head.sha }}/example/generated_output/classes.png?raw=true)
+          ![](${{ github.server_url }}/${{ github.repository }}/blob/${{ steps.auto-commit-action.outputs.commit_hash }}/example/generated_output/classes.png?raw=true)

@@ -38,6 +38,6 @@ class Order:
     def complete(self) -> None:
         self.status = "completed"
 
-# class Recipet:
-#     def __init__(self, order:Order):
-#         pass
+class Recipet:
+    def __init__(self, order:Order):
+        pass

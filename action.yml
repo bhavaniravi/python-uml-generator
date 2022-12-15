@@ -18,6 +18,7 @@ runs:
       shell: bash
     
     - name: Commit report
+      id: commit_report
       uses: stefanzweifel/git-auto-commit-action@v4
       env: 
         GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
@@ -30,7 +31,8 @@ runs:
     - uses: mshick/add-pr-comment@v2
       # default is true
       if: ${{ env.ADD_PR_COMMENT == 'true' }} 
+      needs: job1
       with:
         message: |
           Generated Image
-          ![](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.event.pull_request.head.sha }}/example/generated_output/classes.png?raw=true)
+          ![](${{ github.server_url }}/${{ github.repository }}/blob/${{ steps.commit_report.outputs.commit_sha }}/example/generated_output/classes.png?raw=true)

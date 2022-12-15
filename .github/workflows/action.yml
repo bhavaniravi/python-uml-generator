@@ -37,8 +37,10 @@ jobs:
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Generate Pyreverse 
-        uses: bhavaniravi/python-uml-generator@v0.1
+        uses: ./
         env:
           FORMAT: png
           OUTPUT_FOLDER: generated_output
-          ADD_PR_COMMENT: True
+          ADD_PR_COMMENT: true
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}

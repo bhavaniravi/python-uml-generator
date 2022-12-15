@@ -20,8 +20,8 @@ runs:
     - name: Commit report
       uses: stefanzweifel/git-auto-commit-action@v4
       env: 
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        GITHUB_EMAIL: ${{ secrets.USER_GITHUB_EMAIL }}
+        GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
+        GITHUB_EMAIL: ${{ env.USER_GITHUB_EMAIL }}
       with:
         commit_message: Image generated from ${{ github.event.pull_request.head.sha }}"
         status_options: --untracked-files=all  
@@ -29,7 +29,7 @@ runs:
 
     - uses: mshick/add-pr-comment@v2
       # default is true
-      if: ${{ env.ADD_PR_COMMENT == "" || env.ADD_PR_COMMENT == "True" }} 
+      if: ${{ env.ADD_PR_COMMENT == true }} 
       with:
         message: |
           Generated Image

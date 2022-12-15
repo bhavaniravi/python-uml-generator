@@ -26,18 +26,9 @@ runs:
       with:
         commit_message: Image generated from ${{ github.event.pull_request.head.sha }}"
         status_options: --untracked-files=all  
-        add_options: -A 
-
-
-    - name: Generate Pyreverse 
-      run: |
-        echo ${{ steps.auto-commit-action.outputs.commit_hash }}
-        echo ${{ steps.auto-commit-action.outputs.changes_detected }}
-        pyreverse -o ${{ env.FORMAT }} -d ${{ env.OUTPUT_FOLDER }} ${{ env.FOLDER_PATH }} 
-      shell: bash           
+        add_options: -A           
 
     - uses: mshick/add-pr-comment@v2
-      # default is true
       if: ${{ env.ADD_PR_COMMENT == 'true' }}
       env: 
         GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}

@@ -34,7 +34,7 @@ jobs:
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Generate Pyreverse 
-        uses: bhavaniravi@python-uml-generator@v0.1
+        uses: ./
         env:
           FORMAT: png
           OUTPUT_FOLDER: generated_output
